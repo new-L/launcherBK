@@ -35,14 +35,27 @@ public class AutoUpdate : MonoBehaviour
         m_CurrentVersion.text = ReadVersionFile();
         if (serverVersion.Equals(ReadVersionFile()))
         {
+            if (CheckSetup())
+            {
+                IsUpdated = true;
+                IsSetuped = true;
+                m_Precentage.text = "Вы обновлены до последней версии, приятной игры!";
+                m_Updater.GetComponentInChildren<Text>().text = "играть".ToUpper();
+            }
+            else
+            {
+                m_Updater.enabled = true;
+                IsUpdated = true;
+                IsSetuped = false;
+                m_Precentage.text = "Требуется установка!";
+                m_Updater.GetComponentInChildren<Text>().text = "Установить".ToUpper();
+            }
             m_ProgressBar.value = 100;
             _Fill.sprite = Resources.Load<Sprite>("progress bar_Updated");
-            IsUpdated = true;
-            m_Precentage.text = "Вы обновлены до последней версии, приятной игры!";
-            m_Updater.GetComponentInChildren<Text>().text = "играть".ToUpper();
         }
         else
         {
+            IsSetuped = false;
             IsUpdated = false;
             m_Precentage.text = "Доступная новая версия игры! " + serverVersion;
             m_Updater.GetComponentInChildren<Text>().text = "Обновить".ToUpper();
@@ -50,8 +63,9 @@ public class AutoUpdate : MonoBehaviour
     }
     public void CheckUpdate()
     {
-        if (IsUpdated) GoToPlay();
-        else GoToDownload();
+        if (IsUpdated && IsSetuped) GoToPlay();
+        else if (!IsUpdated && !IsSetuped) GoToDownload();
+        else if (IsUpdated && !IsSetuped) Setup();
     } 
 
     private void GoToPlay()
@@ -80,7 +94,7 @@ public class AutoUpdate : MonoBehaviour
     private void RenameOldVersion()
     {
         if(Directory.Exists(Application.dataPath + "/" + gameFolder + "_old/")) Directory.Delete(Application.dataPath + "/" + gameFolder + "_old/");
-        if(Directory.Exists(Application.dataPath + "/" + "setup_BK.exe")) Directory.Delete(Application.dataPath + "/" + "setup_BK.exe");
+        if(Directory.Exists(Application.dataPath + "/" + "BeKingSetup.exe")) Directory.Delete(Application.dataPath + "/" + "BeKingSetup.exe");
         //Если у нас есть старая версия, переименовываем для подстраховки, после проверки на работоспособность новой версии - удалить
         if (CheckTheGame())
         {
@@ -97,7 +111,7 @@ public class AutoUpdate : MonoBehaviour
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
             try
             {
-                client.DownloadFileAsync(new Uri(gameURL), Application.dataPath + "/" + "setup_BK.exe");
+                client.DownloadFileAsync(new Uri(gameURL), Application.dataPath + "/" + "BeKingSetup.exe");
             }catch(Exception e)
             {
                 print(e);
@@ -127,7 +141,6 @@ public class AutoUpdate : MonoBehaviour
             WriteVersionFile(serverVersion);
             animation.SetCurrentVersion(serverVersion);
             StartCoroutine(Start());
-            Setup();
         }
     }
 
@@ -146,7 +159,7 @@ public class AutoUpdate : MonoBehaviour
                                 echo Please wait, program installing
                                 cd " + Application.dataPath + "\n"
                                     + drive + ":\n"
-                                    + "start /wait setup_BK.exe /VERYSILENT /DIR=" + Application.dataPath + "\\BecomingKing /SUPPRESSMSGBOXES /NORESTART\n"
+                                    + "start /wait BeKingSetup.exe /VERYSILENT /DIR=" + Application.dataPath + "\\BecomingKing /SUPPRESSMSGBOXES /NORESTART\n"
                                     + "exit";
                 File.WriteAllText(batPath, commands, Encoding.Default);
                 Process cmd = new Process();
@@ -156,7 +169,6 @@ public class AutoUpdate : MonoBehaviour
                 cmd.WaitForExit();
                 File.Delete(batPath);
                 IsSetuped = true;
-
             }
             catch (Exception e)
             {
@@ -165,10 +177,16 @@ public class AutoUpdate : MonoBehaviour
         });
         
     }
+
+    private bool CheckSetup()
+    {
+        return Directory.Exists(Application.dataPath + "\\BecomingKing\\BecomingKing.exe");
+    }
     private void Update()
     {
         if (IsSetuped)
         {
+            m_Precentage.text = "Вы обновлены до последней версии, приятной игры!";
             m_Updater.GetComponentInChildren<Text>().text = "Играть".ToUpper();
             m_Updater.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             m_Updater.enabled = true;

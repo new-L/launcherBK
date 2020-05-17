@@ -50,27 +50,27 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11152}
+      Script: {instanceID: 11154}
     - Class: 114
-      Script: {instanceID: 11322}
+      Script: {instanceID: 11324}
     - Class: 114
-      Script: {instanceID: 11362}
+      Script: {instanceID: 11364}
     - Class: 114
-      Script: {instanceID: 11598}
+      Script: {instanceID: 11600}
     - Class: 114
-      Script: {instanceID: 11778}
+      Script: {instanceID: 11780}
     - Class: 114
-      Script: {instanceID: 12186}
+      Script: {instanceID: 11792}
     - Class: 114
-      Script: {instanceID: 12308}
+      Script: {instanceID: 12190}
     - Class: 114
-      Script: {instanceID: 12696}
+      Script: {instanceID: 12312}
     - Class: 114
-      Script: {instanceID: 13078}
+      Script: {instanceID: 12700}
     - Class: 114
-      Script: {instanceID: 13110}
+      Script: {instanceID: 13082}
     - Class: 114
-      Script: {instanceID: 15480}
+      Script: {instanceID: 13114}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -262,6 +262,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: ControlPlayableAsset
+  - hash:
+      serializedVersion: 2
+      Hash: f696285f6458760bce2a2d6c7b7775ad
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TextAnimatiopn
   - hash:
       serializedVersion: 2
       Hash: b8a5e8091ab0b8861d2add371082c5e0
@@ -520,13 +526,7 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: f696285f6458760bce2a2d6c7b7775ad
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: TextAnimatiopn
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/seyda/Desktop/Update/Updater/Updater.exe
+  playerPath: C:/Users/seyda/Desktop/Update/Updater/BKLauncher.exe
