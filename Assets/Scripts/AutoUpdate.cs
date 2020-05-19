@@ -155,12 +155,8 @@ public class AutoUpdate : MonoBehaviour
                 m_Updater.GetComponent<Image>().color = new Color32(147,147,147,255);
                 string drive = Application.dataPath.Substring(0, Application.dataPath.IndexOf(":"));
                 string batPath = Path.Combine(Path.GetTempPath(), "abc.bat");
-                string commands = @"@echo off
-                                echo Please wait, program installing
-                                cd " + Application.dataPath + "\n"
-                                    + drive + ":\n"
-                                    + "start /wait BeKingSetup.exe /VERYSILENT /DIR=" + Application.dataPath + "\\BecomingKing /SUPPRESSMSGBOXES /NORESTART\n"
-                                    + "exit";
+                string commands = @"@echo off" + "\ncd " + Application.dataPath + "\n" + drive + ":\n" 
+                                    + "start /wait BeKingSetup.exe /VERYSILENT /DIR=\"" + Application.dataPath + "/BecomingKing\" /SUPPRESSMSGBOXES /NORESTART\n" +"exit";
                 File.WriteAllText(batPath, commands, Encoding.Default);
                 Process cmd = new Process();
                 cmd.StartInfo.FileName = batPath;
@@ -180,7 +176,7 @@ public class AutoUpdate : MonoBehaviour
 
     private bool CheckSetup()
     {
-        return Directory.Exists(Application.dataPath + "\\BecomingKing\\BecomingKing.exe");
+        return File.Exists(Application.dataPath + "/BecomingKing/BecomingKing.exe");
     }
     private void Update()
     {
@@ -200,12 +196,7 @@ public class AutoUpdate : MonoBehaviour
         {
             string drive = Application.dataPath.Substring(0, Application.dataPath.IndexOf(":"));
             string batPath = Path.Combine(Path.GetTempPath(), "abc.bat");
-            string commands = @"@echo off
-                                echo Please wait, program installing
-                                cd " + Application.dataPath + "\n"
-                                + drive + ":\n"
-                                + "start " + Application.dataPath + "\\BecomingKing\\BecomingKing.exe "
-                                + "exit";
+            string commands = @"@echo off & cd " + Application.dataPath + "/BecomingKing & " + drive + ": & start BecomingKing.exe & exit";
             File.WriteAllText(batPath, commands, Encoding.Default);
             Process cmd = new Process();
             cmd.StartInfo.FileName = batPath;

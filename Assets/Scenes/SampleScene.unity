@@ -496,6 +496,7 @@ MonoBehaviour:
   m_Updater: {fileID: 117598566}
   m_ProgressBar: {fileID: 594598002}
   _Fill: {fileID: 1407909212}
+  text: {fileID: 0}
 --- !u!114 &583839181
 MonoBehaviour:
   m_ObjectHideFlags: 0
