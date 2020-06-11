@@ -93,12 +93,12 @@ public class AutoUpdate : MonoBehaviour
 
     private void RenameOldVersion()
     {
-        if(Directory.Exists(Application.dataPath + "/" + gameFolder + "_old/")) Directory.Delete(Application.dataPath + "/" + gameFolder + "_old/");
+        if(Directory.Exists(Application.dataPath + "/" + gameFolder + "_old")) Directory.Delete(Application.dataPath + "/" + gameFolder + "_old", true);
         if(Directory.Exists(Application.dataPath + "/" + "BeKingSetup.exe")) Directory.Delete(Application.dataPath + "/" + "BeKingSetup.exe");
         //Если у нас есть старая версия, переименовываем для подстраховки, после проверки на работоспособность новой версии - удалить
         if (CheckTheGame())
         {
-            Directory.Move(Application.dataPath + "/" + gameFolder + "/", Application.dataPath + "/" + gameFolder + "_old/");
+            Directory.Move(Application.dataPath + "/" + gameFolder + "/", Application.dataPath + "/" + gameFolder + "_old");
         }
 
     }
